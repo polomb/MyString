@@ -45,7 +45,7 @@ public:
     // modifiers
     void clear();
     void resize(unsigned int count);
-    void realloc(unsigned int count);
+    void realloc(unsigned int count); // realloc != resize; realloc (sizeStr -> sizeStr; capacity -> count)
     unsigned int insert(unsigned int pos, char ch);  // aad, insert(2, 'b') => aabd, return pos
     unsigned int insert(unsigned int pos, const MyString& substr); // aad, insert(2, "bc") => aabcd
     unsigned int erase(unsigned int pos);  // aabd, erase(2) => aad

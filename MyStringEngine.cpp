@@ -130,18 +130,23 @@ void MyString::resize(unsigned int count)
 		}
 	}
 }
-//void MyString::realloc(unsigned int count) {}
 void MyString::realloc(unsigned int count)
 {
-	char* dop = new char[count];
-	unsigned int min = std::min(sizeStr, count);
-	for (unsigned int i = 0; i < min; i++)
+	if (count >= sizeStr)
 	{
-		dop[i] = str[i];
+		char* dop = new char[count];
+		for (unsigned int i = 0; i < sizeStr; i++)
+		{
+			dop[i] = str[i];
+		}
+		delete[] str;
+		capacity = count;
+		str = dop;
 	}
-	delete[] str;
-	capacity = count;
-	str = dop;
+	else
+	{
+		std::cout << "Error#Realloc: count can not be < than sizeStr(sizeStr->sizeStr, capacity -> count)" << "\n";
+	}
 }
 unsigned int MyString::insert(unsigned int pos, char ch)  // aad, insert(2, 'b') => aabd, return pos
 {
@@ -202,8 +207,6 @@ unsigned int MyString::erase(unsigned int pos, unsigned int count)  // aabdcc, e
 		std::cout << "Error#(Long)Erase: Out-of-bounds" << "\n";
 	}
 }
-//void MyString::push_back(char ch) {}
-//void MyString::pop_back() {}
 void MyString::push_back(char ch) // insert to the end
 {
 	if (sizeStr + 1 > capacity)
