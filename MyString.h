@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cmath>
 
+#define UVELICHCONST 1.5
+
 // necessary includes
 // see: https://en.cppreference.com/w/cpp/string/basic_string
 
@@ -14,7 +16,7 @@ private:
     unsigned int capacity = 0;
 public:
     // constructors
-    MyString();
+    MyString() {};
     MyString(unsigned int count, char ch);
     MyString(const char* string);  // copy
     

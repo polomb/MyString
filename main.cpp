@@ -41,6 +41,8 @@ int main()
 		b.print();
 		b.pop_back();
 		b.print();
+		b.insert(2, 'g');
+		b.print();
 		//
 		MyString e("GG");
 		e += d;;
@@ -87,6 +89,13 @@ int main()
 		MyString r6("AFAHBFHAWBfYAWAAF");
 		MyString r7("AAF");
 		std::cout << r6.find(r7) << "\n";
+		//
+		MyString t1("Hello");
+		MyString t2("12");
+		t1.insert(6, t2);
+		t1.print();
+		t2.erase(0, 3);
+		t2.print();
 		//
 		std::cout << "b[5] and b.at(5) is in range of Array, b[10] and b.at(10) is out of range of Array" << "\n";
 		std::cout << b[5] << " " << b.at(5) << " " << b[10] << "\n";

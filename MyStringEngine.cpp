@@ -1,6 +1,5 @@
 #include "MyString.h"
 
-MyString::MyString() {}
 MyString::MyString(unsigned int count, char ch)
 {
 	sizeStr = count; capacity = count;
@@ -18,14 +17,15 @@ MyString::MyString(const char* string)
 		str[i] = string[i];
 }
 //RULE OF THREE
-MyString::MyString(const MyString& copy) {
+MyString::MyString(const MyString& copy) 
+{
 	sizeStr = copy.sizeStr; capacity = copy.capacity;
 	str = new char[sizeStr];
 	for (unsigned int i = 0; i < sizeStr; i++)
 		str[i] = copy.str[i];
 }
-
-MyString& MyString::operator=(const MyString& v) {
+MyString& MyString::operator=(const MyString& v) 
+{
 	if (&v != this) {
 		delete[] str;
 		sizeStr = v.sizeStr;  capacity = v.capacity;
@@ -35,11 +35,12 @@ MyString& MyString::operator=(const MyString& v) {
 	}
 	return *this;
 }
-
-MyString::~MyString() {
+MyString::~MyString() 
+{
 	delete[] str;
 }
 //RULE OF THREE ^^^
+unsigned int dopfunc(unsigned int sizeVec);
 //Auxiliary
 bool MyString::empty() const
 {
@@ -102,6 +103,7 @@ const char* MyString::data() const
 //Modifiers
 void MyString::clear()
 {
+	delete[] str;
 	str = nullptr;
 	sizeStr = 0; capacity = 0;
 }
@@ -168,7 +170,7 @@ unsigned int MyString::insert(unsigned int pos, const MyString& substr) // aad__
 	if (pos <= sizeStr)
 	{
 		this->resize(sizeStr + substr.sizeStr);
-		for (unsigned int i = sizeStr - 1; i > pos + substr.sizeStr; i--)
+		for (unsigned int i = sizeStr - 1; i > pos + substr.sizeStr - 1; i--)
 			str[i] = str[i - substr.sizeStr];
 		for (unsigned int i = pos; i < pos + substr.sizeStr; i++)
 			str[i] = substr.str[i - pos];
@@ -195,7 +197,7 @@ unsigned int MyString::erase(unsigned int pos)  // aabd, erase(2) => aad
 }
 unsigned int MyString::erase(unsigned int pos, unsigned int count)  // aabdcc, erase(2, 2) => aacc
 {
-	if (pos < sizeStr - count)
+	if (pos + count < sizeStr)
 	{
 		for (unsigned int i = pos; i < sizeStr - count; i++)
 			str[i] = str[i + count];
@@ -211,7 +213,7 @@ void MyString::push_back(char ch) // insert to the end
 {
 	if (sizeStr + 1 > capacity)
 	{
-		this->realloc(unsigned int(round(double(sizeStr) * 1.5)));
+		this->realloc(dopfunc(sizeStr));
 	}
 	sizeStr++;
 	str[sizeStr - 1] = ch;
@@ -323,4 +325,8 @@ bool MyString::operator>=(const MyString& string) const
 	if (this->compare(string) >= 0)
 		return true;
 	return false;
+}
+unsigned int dopfunc(unsigned int sizeVec)
+{
+	return unsigned int(round(double(sizeVec) * UVELICHCONST));
 }
